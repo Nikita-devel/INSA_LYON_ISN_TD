@@ -186,8 +186,29 @@ def jeu_perdu(jeu, i, j):
     
     
 # Programme principal
-# A completer
+# Paramètres du jeu
+n = 100
+nb_mines = 830
+perdu = False
+
+# 1. Initialisation
+grille_cachee = initialisation_grille_cachee(n, nb_mines)
+grille_joueur = initialisation_grille_affichee(n)
+
+# 2. Boucle de jeu
+while not perdu and not jeu_gagne(grille_joueur, nb_mines):
+    affichage_jeu_visible(grille_joueur)
+    x, y = choix_coordonnees(grille_joueur)
     
+    if jeu_perdu(grille_cachee, x, y):
+        perdu = True
+    else:
+        mise_a_jour_jeu_visible(grille_cachee, grille_joueur, x, y)
 
-
-
+# 3. Conclusion
+if perdu:
+    print("BOUM ! Vous avez perdu.")
+    affichage_jeu(grille_cachee)
+else:
+    print("Félicitations ! Vous avez gagné.")
+    affichage_jeu_visible(grille_joueur)
